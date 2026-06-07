@@ -3,7 +3,7 @@ import { articlesAPI, uploadAPI } from '../../services/api';
 import { toast } from 'sonner';
 import { Newspaper, Clock, User, CheckCircle, XCircle, Trash2, Edit, FileText, Check, X, AlertCircle } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+import { getImageUrl } from '../../utils/imageUrl';
 
 const statusConfig = {
   draft: { label: 'Draft', badge: 'badge-info' },
@@ -204,7 +204,7 @@ export default function AdminArticles() {
                 </div>
                 {formData.imagePath && (
                   <div style={{marginTop: '12px'}}>
-                    <img src={`${API_BASE}${formData.imagePath}`} alt="Preview" style={{height: '100px', borderRadius: '8px', objectFit: 'cover'}} />
+                    <img src={getImageUrl(formData.imagePath)} alt="Preview" style={{height: '100px', borderRadius: '8px', objectFit: 'cover'}} />
                     <button type="button" onClick={() => setFormData({...formData, imagePath: ''})} className="btn-link text-danger" style={{marginLeft:'12px'}}>Hapus Gambar</button>
                   </div>
                 )}
@@ -315,7 +315,7 @@ export default function AdminArticles() {
                         </div>
                         {article.imagePath && (
                           <img
-                            src={`${API_BASE}${article.imagePath}`}
+                            src={getImageUrl(article.imagePath)}
                             alt={article.name}
                             style={{ width: '200px', height: '120px', objectFit: 'cover', borderRadius: 'var(--radius-md)', marginBottom: '12px' }}
                           />

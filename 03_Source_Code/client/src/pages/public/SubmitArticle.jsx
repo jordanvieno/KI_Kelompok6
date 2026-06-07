@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { CheckCircle, Lock, X, Send, Edit } from 'lucide-react';
 import './SubmitArticle.css';
 
-const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+import { getImageUrl } from '../../utils/imageUrl';
 
 export default function SubmitArticle() {
   const { user } = useAuth();
@@ -153,7 +153,7 @@ export default function SubmitArticle() {
               </div>
               {formData.imagePath && (
                 <div className="image-preview-box">
-                  <img src={`${API_BASE}${formData.imagePath}`} alt="Preview" />
+                  <img src={getImageUrl(formData.imagePath)} alt="Preview" />
                   <button
                     type="button"
                     className="remove-btn"

@@ -37,7 +37,7 @@ app.use(helmet({
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "blob:", "https:"],
+      imgSrc: ["'self'", "data:", "blob:", "https:", "*.supabase.co"],
       connectSrc: ["'self'", process.env.CLIENT_URL || 'http://localhost:5174'],
       fontSrc: ["'self'", "https:", "data:"],
       objectSrc: ["'none'"],
@@ -140,8 +140,10 @@ const otpLimiter = rateLimit({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Note: File uploads are now handled by Supabase Storage.
+// Local static serving is only needed for backward compatibility with old data.
+// Uncomment the line below if you still have old local uploads to serve.
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // =============================================
 // SECURITY MIDDLEWARE LAYER 3: Audit Logging

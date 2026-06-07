@@ -3,7 +3,7 @@ import { aspirationsAPI } from '../../services/api';
 import { toast } from 'sonner';
 import { Wrench, ZapOff, Leaf, MessageCircle, BarChart3, Clock, RefreshCw, CheckCircle, XCircle } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+import { getImageUrl } from '../../utils/imageUrl';
 
 const categories = {
   laporan_kerusakan: { label: 'Laporan Kerusakan', icon: Wrench },
@@ -183,7 +183,7 @@ export default function AdminAspirations() {
                         </div>
                         {aspiration.imagePath && (
                           <img
-                            src={`${API_BASE}${aspiration.imagePath}`}
+                            src={getImageUrl(aspiration.imagePath)}
                             alt="Bukti"
                             style={{ width: '60px', height: '40px', objectFit: 'cover', borderRadius: '4px', marginTop: '4px' }}
                           />

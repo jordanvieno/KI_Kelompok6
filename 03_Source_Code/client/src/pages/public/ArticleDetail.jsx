@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { toast } from 'sonner';
 import { ArrowLeft, Calendar, PenTool, MessageSquare, Send, Trash2, Lock } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+import { getImageUrl } from '../../utils/imageUrl';
 
 export default function ArticleDetail() {
   const { id } = useParams();
@@ -73,7 +73,7 @@ export default function ArticleDetail() {
       </Link>
       <article style={{background:'var(--color-surface)',borderRadius:'var(--radius-xl)',boxShadow:'var(--shadow-lg)',overflow:'hidden'}}>
         {article.imagePath && (
-          <img src={`${API_BASE}${article.imagePath}`} alt={article.name} style={{width:'100%',height:'400px',objectFit:'cover'}} />
+          <img src={getImageUrl(article.imagePath)} alt={article.name} style={{width:'100%',height:'400px',objectFit:'cover'}} />
         )}
         <div style={{padding:'40px'}}>
           <div style={{display:'flex',gap:'16px',marginBottom:'16px',fontSize:'0.9rem',color:'var(--color-text-muted)'}}>

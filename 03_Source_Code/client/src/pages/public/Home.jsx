@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import { articlesAPI, documentationAPI, operationsAPI } from '../../services/api';
 import './Home.css';
 
-const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+import { getImageUrl } from '../../utils/imageUrl';
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
@@ -69,7 +69,7 @@ export default function Home() {
                 {article.imagePath && (
                   <div
                     className="news-card-image"
-                    style={{ backgroundImage: `url(${API_BASE}${article.imagePath})` }}
+                    style={{ backgroundImage: `url(${getImageUrl(article.imagePath)})` }}
                   ></div>
                 )}
                 {!article.imagePath && (
@@ -117,7 +117,7 @@ export default function Home() {
                 <SwiperSlide key={doc.id}>
                   <div className="doc-card card">
                     {doc.photoPath ? (
-                      <img src={`${API_BASE}${doc.photoPath}`} alt={doc.description} className="doc-card-img" />
+                      <img src={getImageUrl(doc.photoPath)} alt={doc.description} className="doc-card-img" />
                     ) : (
                       <div className="doc-card-img doc-card-placeholder">📸</div>
                     )}

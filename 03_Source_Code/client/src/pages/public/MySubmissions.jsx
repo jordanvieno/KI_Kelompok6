@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { articlesAPI } from '../../services/api';
 import { FileText, Clock, CheckCircle, XCircle, Calendar, Inbox, Edit3 } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+import { getImageUrl } from '../../utils/imageUrl';
 
 const statusConfig = {
   pending: { label: 'Menunggu Review', badge: 'badge-warning', Icon: Clock },
@@ -76,7 +76,7 @@ export default function MySubmissions() {
                 <div key={article.id} className="card" style={{ padding: '24px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
                   {article.imagePath && (
                     <img
-                      src={`${API_BASE}${article.imagePath}`}
+                      src={getImageUrl(article.imagePath)}
                       alt={article.name}
                       style={{ width: '120px', height: '80px', objectFit: 'cover', borderRadius: 'var(--radius-md)', flexShrink: 0 }}
                     />

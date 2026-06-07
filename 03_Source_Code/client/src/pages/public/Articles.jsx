@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { articlesAPI } from '../../services/api';
 import './Articles.css';
 
-const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+import { getImageUrl } from '../../utils/imageUrl';
 
 export default function Articles() {
   const [articles, setArticles] = useState([]);
@@ -29,7 +29,7 @@ export default function Articles() {
           {articles.map(article => (
             <Link to={`/articles/${article.id}`} className="article-item card" key={article.id}>
               {article.imagePath ? (
-                <div className="article-item-img" style={{backgroundImage:`url(${API_BASE}${article.imagePath})`}}></div>
+                <div className="article-item-img" style={{backgroundImage:`url(${getImageUrl(article.imagePath)})`}}></div>
               ) : (
                 <div className="article-item-img article-placeholder">📰</div>
               )}
