@@ -22,3 +22,6 @@ EXPOSE 7860
 
 # Start the application
 CMD ["npm", "start"]
+
+# Trigger HF sync
+
