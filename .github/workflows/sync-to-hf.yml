@@ -20,12 +20,16 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          # Konfigurasi identitas Git bot
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          # Pindahkan folder server ke folder sementara untuk membuat history git yang bersih
+          cp -r 03_Source_Code/server /tmp/hf-deploy
+          cd /tmp/hf-deploy
           
-          # Ekstrak folder server saja menjadi satu branch khusus bernama hf-deploy
-          git subtree split --prefix 03_Source_Code/server -b hf-deploy
+          # Inisialisasi Git baru, tambahkan file, dan commit
+          git init -b main
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add .
+          git commit -m "Deploy to Hugging Face"
           
-          # Push secara paksa (force) branch hf-deploy ke branch main di Hugging Face
-          git push --force https://JordanVieno:${HF_TOKEN}@huggingface.co/spaces/JordanVieno/BPKB-IPB-Backend hf-deploy:main
+          # Push secara paksa (force) ke branch main di Hugging Face
+          git push --force https://JordanVieno:${HF_TOKEN}@huggingface.co/spaces/JordanVieno/BPKB-IPB-Backend main:main
