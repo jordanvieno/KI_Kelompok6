@@ -1,0 +1,31 @@
+name: Sync Backend to Hugging Face Space
+
+on:
+  push:
+    branches: [main]
+    # Hanya jalan kalau ada perubahan di folder server
+    paths:
+      - '03_Source_Code/server/**'
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Dibutuhkan untuk git subtree
+
+      - name: Push to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # Konfigurasi identitas Git bot
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          
+          # Ekstrak folder server saja menjadi satu branch khusus bernama hf-deploy
+          git subtree split --prefix 03_Source_Code/server -b hf-deploy
+          
+          # Push secara paksa (force) branch hf-deploy ke branch main di Hugging Face
+          git push --force https://JordanVieno:${HF_TOKEN}@huggingface.co/spaces/JordanVieno/BPKB-IPB-Backend hf-deploy:main
