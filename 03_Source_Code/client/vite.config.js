@@ -6,5 +6,8 @@ export default defineConfig({
   plugins: [react()],
   css: {
     postcss: {}
+  },
+  build: {
+    chunkSizeWarningLimit: 1600
   }
 })
