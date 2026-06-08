@@ -15,8 +15,9 @@ function encryptIP(ip) {
   // Generate Initialization Vector (IV) acak sebesar 16 byte
   const iv = crypto.randomBytes(16); 
   
-  // Buat objek cipher
-  const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(SECRET_KEY), iv);
+  // Buat objek cipher (cek apakah SECRET_KEY berupa hex 64 karakter atau teks biasa)
+  const keyBuffer = SECRET_KEY.length === 64 ? Buffer.from(SECRET_KEY, 'hex') : Buffer.from(SECRET_KEY);
+  const cipher = crypto.createCipheriv('aes-256-cbc', keyBuffer, iv);
   
   // Lakukan enkripsi
   let encrypted = cipher.update(ip, 'utf8', 'hex');
