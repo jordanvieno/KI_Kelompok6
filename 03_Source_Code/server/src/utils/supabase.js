@@ -13,7 +13,7 @@ if (!supabaseUrl || !supabaseServiceKey) {
   console.warn('⚠️  SUPABASE_URL or SUPABASE_SERVICE_KEY is not set. File uploads will not work.');
 }
 
-const supabase = createClient(supabaseUrl || '', supabaseServiceKey || '', {
+const supabase = createClient(supabaseUrl || 'https://placeholder.supabase.co', supabaseServiceKey || 'placeholder-key', {
   auth: {
     autoRefreshToken: false,
     persistSession: false,
